@@ -69,7 +69,7 @@ public class GameFrame extends JFrame{
                 );
             }
 
-            startButton.setEnabled(true);
+			startButton.setEnabled(true);
         }
     }
 	
