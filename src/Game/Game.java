@@ -27,13 +27,22 @@ public class Game {
 
     public void startBall(int i, String commands){
         ScriptExpression expr = Parser.parse(commands);
-        expr.interpret(balls.get(i));
+        if(expr != null) {
+            expr.interpret(balls.get(i));
+        }
     }
     public void ballFinishedHandler(){
         finishedBallNumber++;
         if(finishedBallNumber == ballNumber) {
             //System.out.println("Congratulations! All balls has been finished!");
         }
+    }
+    public boolean isEmpty(Position pos){
+        boolean result = level.isEmpty(pos);
+        for(Ball b : balls){
+            result = result && b.getPosition().equals(pos);
+        }
+        return result;
     }
 
     public ArrayList<Ball> getBalls(){
