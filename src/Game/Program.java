@@ -14,10 +14,10 @@ public class Program {
 		//инициализируем поле, м€ч и интерфейс
 		ArrayList<Position> start = new ArrayList();
 		start.add(new Position(6,2));
-		start.add(new Position(7,3));
+		start.add(new Position(6,3));
 		ArrayList<Position> finish = new ArrayList();
 		finish.add(new Position(2,6));
-		finish.add(new Position(3,6));
+		finish.add(new Position(2,6));
 
 		Level level = new Level(ROW, COL, BALL_NUMBER, start, finish);
 		level.setBlock(new Position(0, 0));
