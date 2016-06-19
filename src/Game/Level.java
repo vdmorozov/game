@@ -7,19 +7,36 @@ import java.util.ArrayList;
  * Created by Морозов on 19.06.2016.
  */
 public class Level extends Field{
+
     private int ballNumber;
     private ArrayList<Position> start;
     private ArrayList<Position> finish;
 
-    public Level(int row, int col, int ballNumber, ArrayList<Position> start, ArrayList<Position> finish ){
+    public Level(int row, int col, int ballNumber, Iterable<Position> start, Iterable<Position> finish ){
         super(row, col);
 
-        if( (ballNumber != start.size()) || (ballNumber != finish.size())){
+        int count = 0;
+
+        this.start = new ArrayList<>(ballNumber);
+        for(Position p : start){
+            this.start.add(p);
+            count++;
+        }
+        if(count != ballNumber){
             throw new IllegalArgumentException("number of balls, start positions and finish positions must be equal");
         }
+        count = 0;
+
+        this.finish = new ArrayList<>(ballNumber);
+        for(Position p : finish){
+            this.start.add(p);
+            count++;
+        }
+        if(count != ballNumber){
+            throw new IllegalArgumentException("number of balls, start positions and finish positions must be equal");
+        }
+
         this.ballNumber = ballNumber;
-        this.start = start;
-        this.finish = finish;
     }
 
     @Override
@@ -37,5 +54,13 @@ public class Level extends Field{
         super.setBlock(block);
     }
 
-    //TODO: getStart(), getFinish()
+    public ArrayList<Position> getStart(){
+        return start;
+    }
+    public ArrayList<Position> getFinish(){
+        return finish;
+    }
+    public int getBallNumber(){
+        return ballNumber;
+    }
 }
