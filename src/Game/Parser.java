@@ -1,9 +1,11 @@
 package Game;
 
 public class Parser {
-	private ScriptExpression expr;
-	
-	public void parse(String string){
+	private static ScriptExpression result;
+
+	//returns null, if no commands parsed
+	public static ScriptExpression parse(String string){
+		result = null;
 		String command;
 		int oldIndex = -1;
 		int index;
@@ -47,25 +49,27 @@ public class Parser {
 			}
 			else break;
 		}
-		
+		return result;
 	}
 	
+	/*
 	public void start(Ball ball){
-		if(expr == null){
+		if(result == null){
 			//TODO: вывод ошибки
 		}
 		else{
-			expr.interpret(ball);
+			result.interpret(ball);
 		}
 	}
+	*/
 	
 	//добавляет выражение к текущему (справа)
-	private void addExpression(ScriptExpression toAdd){
-		if(expr == null){
-			expr = toAdd;
+	private static void addExpression(ScriptExpression toAdd){
+		if(result == null){
+			result = toAdd;
 		}
 		else{
-			expr = new SequenceExpression(expr, toAdd);
+			result = new SequenceExpression(result, toAdd);
 		}
 	}
 }

@@ -11,7 +11,9 @@ public class GameFrame extends JFrame{
 	private JEditorPane editor;
 	private JButton startButton;
 	private JFrame frame;
-	
+
+	private ScriptExpression expr = null;
+
 	public GameFrame(GamePanel gamePanel){
 		super("Game");
 		frame = this;
@@ -28,10 +30,9 @@ public class GameFrame extends JFrame{
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				Parser parser = new Parser();
 				String commands = editor.getText();
 				try{
-					parser.parse(commands);
+					expr = Parser.parse(commands);
 				}catch(IllegalArgumentException e){
 					JOptionPane.showMessageDialog(
 							frame,
@@ -47,7 +48,7 @@ public class GameFrame extends JFrame{
 						startButton.setEnabled(false);
 						
 						try{
-							parser.start(gamePanel.getBall(0));
+							expr.interpret(gamePanel.getBall(0));
 						}catch(IndexOutOfBoundsException e){
 							JOptionPane.showMessageDialog(
 									frame,

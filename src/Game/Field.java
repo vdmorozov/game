@@ -1,4 +1,5 @@
 package Game;
+import java.awt.*;
 import java.util.ArrayList;
 
 public class Field {
@@ -9,7 +10,7 @@ public class Field {
 	private int col;
 	private ArrayList<Boolean> matrix;
 	
-	private Field(int row, int col){
+	public Field(int row, int col){
 		this.row = row;
 		this.col = col;
 		matrix = new ArrayList<Boolean>(row * col);
@@ -22,11 +23,12 @@ public class Field {
 		this(ROW, COL);
 	}
 	
-	void setBlock(int i, int j){
-		matrix.set(i * col + j, false);
+	void setBlock(Position pos)
+	{
+		matrix.set(pos.i * col + pos.j, false);
 	}	
-	boolean isEmpty(int i, int j){
-		return matrix.get(i * col + j);
+	boolean isEmpty(Position pos){
+		return matrix.get(pos.i * col + pos.j);
 	}
 	int getRow(){
 		return row;

@@ -57,7 +57,7 @@ public class GamePanel extends JPanel implements Runnable{
 		//блоки
 		for(int i = 0; i < field.getRow(); i++){
 			for(int j = 0; j < field.getCol(); j++){
-				if(!field.isEmpty(i, j)){
+				if(!field.isEmpty(new Position(i, j))){
 					g2d.fillRect(j * stepX + offsetX,  i * stepY + offsetY, stepX, stepY);
 				}
 			}

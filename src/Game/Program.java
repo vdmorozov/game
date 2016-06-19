@@ -7,13 +7,13 @@ public class Program {
 	public static void main(String[] args) {
 		//инициализируем поле, м€ч и интерфейс
 		Field field = new Field();
-		field.setBlock(0, 0);
-		field.setBlock(0, 2);
-		field.setBlock(2, 0);
-		field.setBlock(5, 5);
-		field.setBlock(9, 9);
-		field.setBlock(5, 9);
-		field.setBlock(9, 5);
+		field.setBlock(new Position(0, 0));
+		field.setBlock(new Position(0, 2));
+		field.setBlock(new Position(2, 0));
+		field.setBlock(new Position(5, 5));
+		field.setBlock(new Position(9, 9));
+		field.setBlock(new Position(5, 9));
+		field.setBlock(new Position(9, 5));
 		
 		Ball ball = new Ball(6,2,field);
 		
