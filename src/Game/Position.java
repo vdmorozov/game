@@ -4,7 +4,7 @@ package Game;
  * Created by Морозов on 19.06.2016.
  */
 public class Position {
-    final int i, j;
+    int i, j;
 
     Position(int i, int j){
         this.i = i;

@@ -1,56 +1,60 @@
 package Game;
 
 public class Ball {
-	private int i;
-	private int j;
+	private Position position;
 	private Field field;
 	
-	Ball(int i, int j, Field field){
-		if(!field.isEmpty(new Position(i, j))){
+	Ball(Position start, Field field){
+		if(!field.isEmpty(start)){
 			throw new IllegalArgumentException("Cannot create ball: point is not empty");
 		}
-		this.i = i;
-		this.j = j;
+		this.position = start;
 		this.field = field;
 	}
 	
 	boolean up(){
-		if (i == 0) return false;
-		else if(field.isEmpty(new Position(i-1, j))){
-			i--;
+		Position up = new Position(position.i-1, position.j);
+		if (position.i == 0)
+			return false;
+		else if(field.isEmpty(up)){
+			position.i--;
 			return true;
 		}
-		else return false;
+		else
+			return false;
 	}
 	boolean down(){
-		if ( (i+1) == field.getRow()) return false;
-		else if(field.isEmpty(new Position(i+1, j))){
-			i++;
+		Position down = new Position(position.i+1, position.j);
+		if ( position.i+1 == field.getRow())
+			return false;
+		else if(field.isEmpty(down)){
+			position.i++;
 			return true;
 		}
 		else return false;
 	}
 	boolean left(){
-		if (j == 0) return false;
-		else if(field.isEmpty(new Position(i, j-1))){
-			j--;
+		Position left = new Position(position.i, position.j-1);
+		if (position.j == 0) return false;
+		else if(field.isEmpty(left)){
+			position.j--;
 			return true;
 		}
-		else return false;
+		else
+			return false;
 	}
 	boolean right(){
-		if ( (j+1) == field.getCol()) return false;
-		else if(field.isEmpty(new Position(i, j+1))){
-			j++;
+		Position right = new Position(position.i, position.j+1);
+		if ( position.j +1 == field.getCol())
+			return false;
+		else if(field.isEmpty(right)){
+			position.j++;
 			return true;
 		}
 		else return false;
 	}
-	int getI(){
-		return i;
-	}
-	int getJ(){
-		return j;
+	Position getPosition(){
+		return position;
 	}
 	Field getField(){
 		return field;
