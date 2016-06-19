@@ -1,8 +1,9 @@
 package Game;
 import java.awt.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Field {
+public class Field implements Serializable {
 	static final int ROW = 10;
 	static final int COL = 10;
 	
@@ -23,11 +24,11 @@ public class Field {
 		this(ROW, COL);
 	}
 	
-	void setBlock(Position pos)
+	public void setBlock(Position pos)
 	{
 		matrix.set(pos.i * col + pos.j, false);
 	}	
-	boolean isEmpty(Position pos){
+	public boolean isEmpty(Position pos){
 		return matrix.get(pos.i * col + pos.j);
 	}
 	int getRow(){
