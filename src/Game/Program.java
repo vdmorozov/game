@@ -12,7 +12,7 @@ public class Program {
 
 	public static void main(String[] args) {
 		//инициализируем поле, м€ч и интерфейс
-		ArrayList<Position> start = new ArrayList();
+		/*ArrayList<Position> start = new ArrayList();
 		start.add(new Position(6,2));
 		start.add(new Position(6,3));
 		ArrayList<Position> finish = new ArrayList();
@@ -31,7 +31,10 @@ public class Program {
 		Game game = new Game(level);
 
 		GameFrame frame = new GameFrame(game);
-		
+		*/
+
+        Loader loader = Loader.getInstance();
+
 		/*
 		//провер€ем парсер
 		Parser parser = new Parser();

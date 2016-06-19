@@ -18,13 +18,13 @@ public class GameFrame extends JFrame{
 
 	private ScriptExpression expr = null;
 
-	public GameFrame(Game game){
+	public GameFrame(){
 		super("Game");
 		frame = this;
 
 		scriptPanel = new JPanel();
 		scriptPanel.setLayout(new BorderLayout());
-        setLevel(game);
+        //setLevel(game);
 		startButton = new JButton("Start");
 		startButton.addActionListener(new ActionListener(){
 
