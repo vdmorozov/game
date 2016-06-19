@@ -4,7 +4,7 @@ public class Parser {
 	private static ScriptExpression result;
 
 	//returns null, if no commands parsed
-	public static ScriptExpression parse(String string){
+	public synchronized static ScriptExpression parse(String string){
 		result = null;
 		String command;
 		int oldIndex = -1;

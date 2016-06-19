@@ -24,7 +24,7 @@ public class GameFrame extends JFrame{
 
 		scriptPanel = new JPanel();
 		scriptPanel.setLayout(new BorderLayout());
-        setLevel(game);
+
 		startButton = new JButton("Start");
 		startButton.addActionListener(new ActionListener(){
 
@@ -33,6 +33,7 @@ public class GameFrame extends JFrame{
 				String commands;
 				for(int i=0; i<game.getBallNumber(); i++) {
                     commands=editors.get(i).getText();
+					//System.out.println(i + ": " + commands);
                     new Thread(new RunTask(i,commands)).start();
                 }
 			}
@@ -42,6 +43,8 @@ public class GameFrame extends JFrame{
 		scriptPanel.add(startButton, BorderLayout.PAGE_END);
 		scriptPanel.setPreferredSize(new Dimension(200,400));
 		this.add(scriptPanel, BorderLayout.LINE_END);
+
+		setLevel(game);
 
 		this.setResizable(false);
 		this.setVisible(true);
@@ -69,7 +72,7 @@ public class GameFrame extends JFrame{
                 );
             }
 
-            startButton.setEnabled(true);
+			startButton.setEnabled(true);
         }
     }
 	
