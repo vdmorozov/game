@@ -15,9 +15,7 @@ public class LeftCommand extends ScriptExpression{
 	@Override
 	public void interpret(Ball ball) {
 		for (int i = 0; i < steps; i++){
-			if(!ball.left()){
-				throw new IndexOutOfBoundsException("слева нет места!");
-			}
+			ball.left();
 			try {
 				TimeUnit.SECONDS.sleep(DELAY);
 			} catch (InterruptedException e) {

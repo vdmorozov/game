@@ -29,7 +29,13 @@ public class Field implements Serializable {
 		matrix.set(pos.i * col + pos.j, false);
 	}	
 	public boolean isEmpty(Position pos){
-		return matrix.get(pos.i * col + pos.j);
+		boolean isEmpty;
+		try{
+			isEmpty = matrix.get(pos.i * col + pos.j);
+		}catch (IndexOutOfBoundsException e){
+			isEmpty = false;
+		}
+		return isEmpty;
 	}
 	int getRow(){
 		return row;
