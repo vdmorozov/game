@@ -8,8 +8,8 @@ import java.util.ArrayList;
  */
 public class Loader {
     private static Loader instance;
-
-    private static String listpath = "level/lvllist.lvl";
+    private GameFrame frame;
+    private static String listpath = "levels/lvllist.lvl";
     private ArrayList<String> lvllist;
     private Level currentLevel;
     private int currentI;
@@ -29,12 +29,15 @@ public class Loader {
             e.printStackTrace();
         }
     }
+    public void setFrame(GameFrame g){
+        this.frame=g;
+    }
 
     public void loadLevel(int num){
         if(num!=currentI){
 
             try {
-                FileInputStream fis = new FileInputStream(lvllist.get(num));
+                FileInputStream fis = new FileInputStream("levels/" + lvllist.get(num));
                 ObjectInputStream oin = new ObjectInputStream(fis);
                 currentLevel = (Level) oin.readObject();
             } catch (FileNotFoundException e) {
