@@ -1,12 +1,14 @@
 package Game;
 
+import java.io.Serializable;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 /**
  * Created by Морозов on 19.06.2016.
  */
-public class Level extends Field{
+
+public class Level extends Field implements Serializable{
 
     private int ballNumber;
     private ArrayList<Position> start;
@@ -19,7 +21,7 @@ public class Level extends Field{
 
         this.start = new ArrayList<>(ballNumber);
         for(Position p : start){
-            this.start.add(p);
+            this.start.add(new Position(p));
             count++;
         }
         if(count != ballNumber){
@@ -29,7 +31,7 @@ public class Level extends Field{
 
         this.finish = new ArrayList<>(ballNumber);
         for(Position p : finish){
-            this.start.add(p);
+            this.start.add(new Position(p));
             count++;
         }
         if(count != ballNumber){
@@ -40,7 +42,7 @@ public class Level extends Field{
     }
 
     @Override
-    void setBlock(Position block){
+    public void setBlock(Position block){
         for(Position p : start){
             if(p.equals(block)){
                 throw new IllegalArgumentException("this position is already reserved for start/finish");
