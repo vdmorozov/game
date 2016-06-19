@@ -9,18 +9,20 @@ import java.util.ArrayList;
 public class Loader {
     private static Loader instance;
     private GameFrame frame;
-    private static String listpath = "levels/lvllist.lvl";
+    private static String listpath = "levels/lvllist";
     private ArrayList<String> lvllist;
     private Level currentLevel;
     private int currentI;
 
     private Loader(){
         currentI=0;
+        lvllist=new ArrayList<>();
         try {
             String buffer;
             BufferedReader in = new BufferedReader(new FileReader(listpath));
             while((buffer=in.readLine())!=null){
                 lvllist.add(buffer);
+                System.out.println(buffer);
             }
 
         } catch (FileNotFoundException e) {
@@ -28,15 +30,15 @@ public class Loader {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-        //loadLevel();
+        frame = new GameFrame();
+        loadLevel(currentI);
     }
     public void setFrame(GameFrame g){
         this.frame=g;
     }
 
     public void loadLevel(int num){
-        if(num!=currentI){
+        if(num!=currentI||((currentI==0)&&(num==0))){
 
             try {
                 FileInputStream fis = new FileInputStream("levels/" + lvllist.get(num));
@@ -49,11 +51,10 @@ public class Loader {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            //TODO:changing frame
         }
-        else{
-            //TODO:changing frame
-        }
+        Game game = new Game(currentLevel);
+        frame.setLevel(game);
+
     }
 
     public static Loader getInstance(){
