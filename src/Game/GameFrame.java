@@ -69,5 +69,12 @@ public class GameFrame extends JFrame{
 		this.setVisible(true);
 	}
 	
-	
+	public void setLevel(Game g){
+
+        this.game=g;
+        this.gamePanel = new GamePanel(game);
+        this.gamePanel.setPreferredSize(new Dimension(400, 400));
+        this.getContentPane().add(this.gamePanel, BorderLayout.CENTER);
+        this.pack();
+    }
 }
