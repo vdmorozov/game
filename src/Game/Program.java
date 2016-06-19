@@ -1,23 +1,33 @@
 package Game;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
 public class Program {
+	final static int ROW = 10;
+	final static int COL = 10;
+	final static int BALL_NUMBER = 1;
+
 
 	public static void main(String[] args) {
 		//инициализируем поле, м€ч и интерфейс
-		Field field = new Field();
-		field.setBlock(new Position(0, 0));
-		field.setBlock(new Position(0, 2));
-		field.setBlock(new Position(2, 0));
-		field.setBlock(new Position(5, 5));
-		field.setBlock(new Position(9, 9));
-		field.setBlock(new Position(5, 9));
-		field.setBlock(new Position(9, 5));
+		ArrayList<Position> start = new ArrayList();
+		start.add(new Position(6,2));
+		ArrayList<Position> finish = new ArrayList();
+		finish.add(new Position(2,6));
+
+		Level level = new Level(ROW, COL, BALL_NUMBER, start, finish);
+		level.setBlock(new Position(0, 0));
+		level.setBlock(new Position(0, 2));
+		level.setBlock(new Position(2, 0));
+		level.setBlock(new Position(5, 5));
+		level.setBlock(new Position(9, 9));
+		level.setBlock(new Position(5, 9));
+		level.setBlock(new Position(9, 5));
 		
-		Ball ball = new Ball(6,2,field);
-		
-		GamePanel game = new GamePanel(field, ball);
+		Game game = new Game(level);
+
 		GameFrame frame = new GameFrame(game);
 		
 		/*

@@ -6,6 +6,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class GameFrame extends JFrame{
+	private Game game;
+
 	private GamePanel gamePanel;
 	private JPanel scriptPanel;
 	private JEditorPane editor;
@@ -14,10 +16,11 @@ public class GameFrame extends JFrame{
 
 	private ScriptExpression expr = null;
 
-	public GameFrame(GamePanel gamePanel){
+	public GameFrame(Game game){
 		super("Game");
 		frame = this;
-		this.gamePanel = gamePanel;
+		this.game = game;
+		this.gamePanel = new GamePanel(game);
 		this.gamePanel.setPreferredSize(new Dimension(400, 400));
 		this.getContentPane().add(this.gamePanel, BorderLayout.CENTER);
 		
@@ -31,16 +34,6 @@ public class GameFrame extends JFrame{
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				String commands = editor.getText();
-				try{
-					expr = Parser.parse(commands);
-				}catch(IllegalArgumentException e){
-					JOptionPane.showMessageDialog(
-							frame,
-							e.getMessage(),
-							"Error",
-							JOptionPane.ERROR_MESSAGE
-							);
-				}
 				
 				new Thread(){
 					@Override
@@ -48,7 +41,7 @@ public class GameFrame extends JFrame{
 						startButton.setEnabled(false);
 						
 						try{
-							expr.interpret(gamePanel.getBall(0));
+							game.startBall(0, commands);
 						}catch(IndexOutOfBoundsException e){
 							JOptionPane.showMessageDialog(
 									frame,

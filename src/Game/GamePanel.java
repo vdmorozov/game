@@ -6,36 +6,21 @@ import java.util.ArrayList;
 import javax.swing.JPanel;
 
 public class GamePanel extends JPanel implements Runnable{
-	private Field field;
-	private ArrayList<Ball> balls;
+	private Game game;
+	//private ArrayList<Ball> balls;
 	Thread repaintThread;
 	
-	public GamePanel(Field field, Ball... balls){
-		//проверим, св€заны ли данные м€чи с данным полем
-		for(Ball b : balls){
-			if(b.getField() != field){
-				throw new IllegalArgumentException("at least one ball is not associated with this field");
-			}
-		}
-		
-		this.field = field;
-		this.balls = new ArrayList<Ball>(balls.length);
-		for(Ball b : balls){
-			this.balls.add(b);
-		}
+	public GamePanel(Game game){
+		this.game = game;
 		
 		repaintThread = new Thread(this);
 		repaintThread.start();
 	}
 	
-	public Ball getBall(int index){
-		return balls.get(index);
-	}
-	
 	@Override
 	public void paintComponent(Graphics g){
-		int stepX = this.getWidth()/field.getCol();
-		int stepY = this.getHeight()/field.getRow();
+		int stepX = this.getWidth()/game.getCol();
+		int stepY = this.getHeight()/game.getRow();
 		int offsetX = 1;
 		int offsetY = 1;
 		
@@ -55,23 +40,23 @@ public class GamePanel extends JPanel implements Runnable{
 		}
 		
 		//блоки
-		for(int i = 0; i < field.getRow(); i++){
-			for(int j = 0; j < field.getCol(); j++){
-				if(!field.isEmpty(new Position(i, j))){
+		for(int i = 0; i < game.getRow(); i++){
+			for(int j = 0; j < game.getCol(); j++){
+				if(!game.getLevel().isEmpty(new Position(i, j))){
 					g2d.fillRect(j * stepX + offsetX,  i * stepY + offsetY, stepX, stepY);
 				}
 			}
 		}
 		
 		//м€чи
-		for (Ball ball : balls){
+		for (Ball ball : game.getBalls()){
 			int smallestStep;
 			if(stepX < stepY) smallestStep = stepX;
 			else smallestStep = stepY;
 
 			g2d.fillOval(
-					ball.getJ() * stepX + offsetX + smallestStep*1/8, 
-					ball.getI() * stepY + offsetY + smallestStep*1/8, 
+					ball.getPosition().j * stepX + offsetX + smallestStep*1/8,
+					ball.getPosition().i * stepY + offsetY + smallestStep*1/8,
 					smallestStep*3/4, 
 					smallestStep*3/4
 					);
