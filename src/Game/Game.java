@@ -36,6 +36,7 @@ public class Game {
         }
     }
 
+    public int getBallNumber(){return ballNumber;}
     public ArrayList<Ball> getBalls(){
         return balls;
     }
