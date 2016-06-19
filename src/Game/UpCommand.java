@@ -15,9 +15,7 @@ public class UpCommand extends ScriptExpression{
 	@Override
 	public void interpret(Ball ball) {
 		for (int i = 0; i < steps; i++){
-			if(!ball.up()){
-				throw new IndexOutOfBoundsException("вверху нет места!");
-			}
+			ball.up();
 			try {
 				TimeUnit.SECONDS.sleep(DELAY);
 			} catch (InterruptedException e) {

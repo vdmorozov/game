@@ -31,7 +31,7 @@ public class Level extends Field implements Serializable{
 
         this.finish = new ArrayList<>(ballNumber);
         for(Position p : finish){
-            this.start.add(new Position(p));
+            this.finish.add(new Position(p));
             count++;
         }
         if(count != ballNumber){

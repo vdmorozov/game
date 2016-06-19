@@ -2,22 +2,30 @@ package Game;
 
 public class Ball {
 	private Position position;
+	private Position finish;
+	private boolean finished;
 	private Field field;
+	private Game game;
 	
-	Ball(Position start, Field field){
-		if(!field.isEmpty(start)){
-			throw new IllegalArgumentException("Cannot create ball: point is not empty");
+	Ball(Position start, Position finish, Game game){
+		if(!game.getLevel().isEmpty(start) || start.equals(finish)){
+			throw new IllegalArgumentException("start point must be empty and not equal to finish");
 		}
 		this.position = start;
-		this.field = field;
+		this.finish = finish;
+		this.game = game;
+		this.field = game.getLevel();
+		finished = false;
 	}
 	
 	boolean up(){
 		Position up = new Position(position.i-1, position.j);
-		if (position.i == 0)
-			return false;
-		else if(field.isEmpty(up)){
+		if(!finished && field.isEmpty(up)){
 			position.i--;
+			finished = position.equals(finish);
+			if(finished){
+				game.ballFinishedHandler();
+			}
 			return true;
 		}
 		else
@@ -25,19 +33,24 @@ public class Ball {
 	}
 	boolean down(){
 		Position down = new Position(position.i+1, position.j);
-		if ( position.i+1 == field.getRow())
-			return false;
-		else if(field.isEmpty(down)){
+		if(!finished && field.isEmpty(down)){
 			position.i++;
+			finished = position.equals(finish);
+			if(finished){
+				game.ballFinishedHandler();
+			}
 			return true;
 		}
 		else return false;
 	}
 	boolean left(){
 		Position left = new Position(position.i, position.j-1);
-		if (position.j == 0) return false;
-		else if(field.isEmpty(left)){
+		if(!finished && field.isEmpty(left)){
 			position.j--;
+			finished = position.equals(finish);
+			if(finished){
+				game.ballFinishedHandler();
+			}
 			return true;
 		}
 		else
@@ -45,10 +58,12 @@ public class Ball {
 	}
 	boolean right(){
 		Position right = new Position(position.i, position.j+1);
-		if ( position.j +1 == field.getCol())
-			return false;
-		else if(field.isEmpty(right)){
+		if(!finished && field.isEmpty(right)){
 			position.j++;
+			finished = position.equals(finish);
+			if(finished){
+				game.ballFinishedHandler();
+			}
 			return true;
 		}
 		else return false;

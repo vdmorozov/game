@@ -15,9 +15,7 @@ public class RightCommand extends ScriptExpression{
 	@Override
 	public void interpret(Ball ball) {
 		for (int i = 0; i < steps; i++){
-			if(!ball.right()){
-				throw new IndexOutOfBoundsException("справа нет места!");
-			}
+			ball.right();
 			try {
 				TimeUnit.SECONDS.sleep(DELAY);
 			} catch (InterruptedException e) {
