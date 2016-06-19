@@ -28,6 +28,8 @@ public class Loader {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        //loadLevel();
     }
     public void setFrame(GameFrame g){
         this.frame=g;
