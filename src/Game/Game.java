@@ -40,7 +40,7 @@ public class Game {
     public boolean isEmpty(Position pos){
         boolean result = level.isEmpty(pos);
         for(Ball b : balls){
-            result = result && b.getPosition().equals(pos);
+            result = result && !b.getPosition().equals(pos);
         }
         return result;
     }

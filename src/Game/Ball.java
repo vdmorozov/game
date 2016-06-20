@@ -16,14 +16,14 @@ public class Ball {
 		this.position = start;
 		this.finish = finish;
 		this.game = game;
-		this.field = game.getLevel();
 		finished = false;
 	}
 	
 	boolean up(){
 		synchronized (lock) {
+			//System.out.println("'up' called");
 			Position up = new Position(position.i - 1, position.j);
-			if (!finished && field.isEmpty(up)) {
+			if (!finished && game.isEmpty(up)) {
 				position.i--;
 				finished = position.equals(finish);
 				if (finished) {
@@ -36,8 +36,9 @@ public class Ball {
 	}
 	boolean down(){
 		synchronized (lock) {
+			//System.out.println("'down' called");
 			Position down = new Position(position.i + 1, position.j);
-			if (!finished && field.isEmpty(down)) {
+			if (!finished && game.isEmpty(down)) {
 				position.i++;
 				finished = position.equals(finish);
 				if (finished) {
@@ -49,8 +50,9 @@ public class Ball {
 	}
 	boolean left(){
 		synchronized (lock) {
+			//System.out.println("'left' called");
 			Position left = new Position(position.i, position.j - 1);
-			if (!finished && field.isEmpty(left)) {
+			if (!finished && game.isEmpty(left)) {
 				position.j--;
 				finished = position.equals(finish);
 				if (finished) {
@@ -63,8 +65,9 @@ public class Ball {
 	}
 	boolean right(){
 		synchronized (lock) {
+			//System.out.println("'right' called");
 			Position right = new Position(position.i, position.j + 1);
-			if (!finished && field.isEmpty(right)) {
+			if (!finished && game.isEmpty(right)) {
 				position.j++;
 				finished = position.equals(finish);
 				if (finished) {

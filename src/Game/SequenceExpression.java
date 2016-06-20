@@ -13,7 +13,12 @@ public class SequenceExpression extends ScriptExpression{
 	@Override
 	public void interpret(Ball ball) {
 		left.interpret(ball);
-		right.interpret(ball);
+		if(left.isStopped()){
+			stopped = true;
+		}
+		else {
+			right.interpret(ball);
+		}
 	}
 
 }
