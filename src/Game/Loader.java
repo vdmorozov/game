@@ -61,6 +61,7 @@ public class Loader implements EndGameObserver{
             e.printStackTrace();
         }
         Game game = new Game(currentLevel);
+        game.registerObserver(this);
         frame.setLevel(game);
 
     }
