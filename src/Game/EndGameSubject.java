@@ -6,5 +6,4 @@ package Game;
 public interface EndGameSubject {
     void registerObserver(EndGameObserver o);
     void removeObserver(EndGameObserver o);
-    void notifyObservers();
 }

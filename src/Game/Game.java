@@ -39,6 +39,7 @@ public class Game implements EndGameSubject {
         finishedBallNumber++;
         if(finishedBallNumber == ballNumber) {
             //System.out.println("Congratulations! All balls has been finished!");
+            notifyObservers();
         }
     }
     public boolean isEmpty(Position pos){
@@ -74,8 +75,7 @@ public class Game implements EndGameSubject {
         observers.remove(o);
     }
 
-    @Override
-    public void notifyObservers() {
+    private void notifyObservers() {
         for(EndGameObserver o : observers){
             o.EndGame();
         }
