@@ -6,7 +6,7 @@ import java.util.ArrayList;
 /**
  * Created by belyanka on 19.06.2016.
  */
-public class Loader {
+public class Loader implements EndGameObserver{
     private static Loader instance;
     private GameFrame frame;
     private static String listpath = "levels/lvllist";
@@ -30,11 +30,20 @@ public class Loader {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        frame = new GameFrame();
+        frame = new GameFrame(this);
         loadLevel(currentI);
     }
     public void setFrame(GameFrame g){
         this.frame=g;
+    }
+
+    public void loadSameLevel(){
+        loadLevel(currentI);
+    }
+
+    public void loadNextLevel(){
+        currentI++;
+        loadLevel(currentI);
     }
 
     public void loadLevel(int num){
@@ -64,4 +73,8 @@ public class Loader {
         return instance;
     }
 
+    @Override
+    public void EndGame() {
+        //TODO:two buttons on the frame
+    }
 }
