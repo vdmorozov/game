@@ -5,13 +5,17 @@ import java.util.ArrayList;
 /**
  * Created by Морозов on 19.06.2016.
  */
-public class Game {
+public class Game implements EndGameSubject {
+    private ArrayList<EndGameObserver> observers;
+
     private Level level;
     private ArrayList<Ball> balls;
     private int ballNumber;
     private int finishedBallNumber;
 
     public Game(Level level){
+        observers = new ArrayList<>();
+
         this.level = level;
         ballNumber = level.getBallNumber();
         balls = new ArrayList<>(ballNumber);
@@ -60,4 +64,20 @@ public class Game {
     }
 
 
+    @Override
+    public void registerObserver(EndGameObserver o) {
+        observers.add(o);
+    }
+
+    @Override
+    public void removeObserver(EndGameObserver o) {
+        observers.remove(o);
+    }
+
+    @Override
+    public void notifyObservers() {
+        for(EndGameObserver o : observers){
+            o.EndGame();
+        }
+    }
 }
