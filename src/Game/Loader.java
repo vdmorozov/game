@@ -31,7 +31,7 @@ public class Loader {
             e.printStackTrace();
         }
         frame = new GameFrame();
-        loadLevel(currentI);
+        loadLevel(1);
     }
     public void setFrame(GameFrame g){
         this.frame=g;

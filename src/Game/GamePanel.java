@@ -6,13 +6,20 @@ import java.util.ArrayList;
 import javax.swing.JPanel;
 
 public class GamePanel extends JPanel implements Runnable{
+	private final ArrayList<Color> colors;
 	private Game game;
-	//private ArrayList<Ball> balls;
+	private Revolver<Color> colorRevolver;
+
 	Thread repaintThread;
 	
 	public GamePanel(Game game){
 		this.game = game;
-		
+		colors = new ArrayList<>();
+		colors.add(Color.BLUE);
+		colors.add(Color.GREEN);
+		colors.add(Color.MAGENTA);
+		colors.add(Color.RED);
+
 		repaintThread = new Thread(this);
 		repaintThread.start();
 	}
@@ -28,7 +35,8 @@ public class GamePanel extends JPanel implements Runnable{
 		super.paintComponent(g);
 		
 		Graphics2D g2d = (Graphics2D) g;
-		
+		colorRevolver = new Revolver<Color>(colors);
+
 		//сетка
 		g2d.setColor(Color.BLACK);
 		g2d.setStroke(new BasicStroke(2));
@@ -47,9 +55,18 @@ public class GamePanel extends JPanel implements Runnable{
 				}
 			}
 		}
-		
+
+		//финиши
+		for(Position finish : game.getLevel().getFinish()){
+			g2d.setColor(colorRevolver.next());
+			g2d.fillRect(finish.j * stepX + offsetX,  finish.i * stepY + offsetY, stepX, stepY);
+		}
+		//сбрасываем цветовой револьвер
+		colorRevolver = new Revolver<Color>(colors);
+
 		//м€чи
 		for (Ball ball : game.getBalls()){
+			g2d.setColor(colorRevolver.next());
 			int smallestStep;
 			if(stepX < stepY) smallestStep = stepX;
 			else smallestStep = stepY;
@@ -75,4 +92,5 @@ public class GamePanel extends JPanel implements Runnable{
 			e.printStackTrace();
 		}
 	}
+
 }
