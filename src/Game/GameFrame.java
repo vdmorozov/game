@@ -1,19 +1,26 @@
 package Game;
 
 import javax.swing.*;
+import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 public class GameFrame extends JFrame{
-	private Game game;
 
+    private final static String START="Start";
+    private final static String END="End";
+
+    private Game game;
 	private GamePanel gamePanel;
     private JTabbedPane tabs;
     private ArrayList<JEditorPane> editors;
 	private JPanel scriptPanel;
-    private JPanel buttonPanel;
+    private JPanel tabsPanel;
+    private JPanel cards;
+    private JPanel buttonPanel0;
+    private JPanel buttonPanel1;
 	private JButton startButton;
     private JButton replayButton;
     private JButton restartButton;
@@ -24,48 +31,83 @@ public class GameFrame extends JFrame{
 	private ScriptExpression expr = null;
 
 	public GameFrame(Loader loader){
-		super("Game");
+
+        super("Game");
         this.loader=loader;
 		frame = this;
-
+        this.setLayout(new BorderLayout());
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 
 		scriptPanel = new JPanel();
 		scriptPanel.setLayout(new BorderLayout());
 
-        buttonPanel = new JPanel();
-        buttonPanel.setLayout(new FlowLayout());
+        tabsPanel = new JPanel();
+        tabsPanel.setLayout(new BorderLayout());
+
+        cards=new JPanel();
+        cards.setLayout(new CardLayout());
+
+        buttonPanel0 = new JPanel();
+        buttonPanel0.setLayout(new FlowLayout());
+
+        buttonPanel1=new JPanel();
+        buttonPanel1.setLayout(new FlowLayout());
 
         restartButton = new JButton("Restart");
         startButton = new JButton("Start");
-        buttonPanel.add(startButton);
-        buttonPanel.add(restartButton);
+        replayButton = new JButton("Replay");
+        nextLevelButton = new JButton("Next");
 
-		startButton.addActionListener(new ActionListener(){
+        buttonPanel0.add(startButton);
+        buttonPanel0.add(restartButton);
 
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				String commands;
-				for(int i=0; i<game.getBallNumber(); i++) {
+        buttonPanel1.add(nextLevelButton);
+        buttonPanel1.add(replayButton);
+
+        cards.add(buttonPanel0,START);
+        cards.add(buttonPanel1,END);
+
+        this.editors = new ArrayList<JEditorPane>();
+
+        startButton.addActionListener(new ActionListener(){
+
+            @Override
+            public void actionPerformed(ActionEvent arg0) {
+                String commands;
+                System.out.println("Starting...");
+                for(int i=0; i<game.getBallNumber(); i++) {
                     commands=editors.get(i).getText();
                     new Thread(new RunTask(i,commands)).start();
                 }
-			}
-			
-		});
+            }
 
-        /*restartButton.addActionListener(new ActionListener() {
+        });
+
+        restartButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                System.out.println("Reloading level.");
                 loader.loadSameLevel();
             }
-        });*/
+        });
 
-		scriptPanel.add(buttonPanel, BorderLayout.PAGE_END);
-		scriptPanel.setPreferredSize(new Dimension(200,400));
-		this.add(scriptPanel, BorderLayout.LINE_END);
+        replayButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("Reloading level.");
+                loader.loadSameLevel();
+            }
+        });
 
-		this.setResizable(false);
+        nextLevelButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("Loading next level.");
+                loader.loadNextLevel();
+            }
+        });
+
+		//this.setResizable(false);
 		this.setVisible(true);
 	}
 
@@ -98,23 +140,43 @@ public class GameFrame extends JFrame{
 	public void setLevel(Game g){
 
         this.game=g;
-        this.gamePanel = new GamePanel(game);
-        this.gamePanel.setPreferredSize(new Dimension(400, 400));
-        this.getContentPane().add(this.gamePanel, BorderLayout.CENTER);
-        this.editors = new ArrayList<JEditorPane>();
+        this.getContentPane().removeAll();
 
-        if(this.tabs==null) {
-            this.tabs = new JTabbedPane();
-            this.scriptPanel.add(tabs, BorderLayout.CENTER);
-        }
-        else {
-            this.tabs = new JTabbedPane();
-        }
+        this.gamePanel = new GamePanel(game);
+        this.getContentPane().add(this.gamePanel, BorderLayout.CENTER);
+
+        this.gamePanel.setPreferredSize(new Dimension(400, 400));
+
+        tabsPanel.removeAll();
+        editors.removeAll(editors);
+
+        this.tabs = new JTabbedPane();
+        this.tabsPanel.add(tabs, BorderLayout.CENTER);
+        this.scriptPanel.add(tabsPanel, BorderLayout.CENTER);
 
         for(int i=0;i<game.getBallNumber();i++) {
-            editors.add(new JEditorPane());
+            JEditorPane editor = new JEditorPane();
+            editors.add(editor);
             tabs.addTab("Ball "+i,editors.get(i));
         }
+
+        this.scriptPanel.add(cards, BorderLayout.PAGE_END);
+        this.scriptPanel.setPreferredSize(new Dimension(200,400));
+        this.add(scriptPanel, BorderLayout.LINE_END);
+        this.setStartButtons();
+        frame.getContentPane().revalidate();
+        frame.getContentPane().repaint();
+
         this.pack();
+    }
+
+    public void setEndGameButtons(){
+        CardLayout cl = (CardLayout) (cards.getLayout());
+        cl.show(cards,END);
+    }
+
+    public void setStartButtons(){
+        CardLayout cl = (CardLayout) (cards.getLayout());
+        cl.show(cards,START);
     }
 }
