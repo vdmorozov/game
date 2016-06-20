@@ -58,7 +58,7 @@ public class GamePanel extends JPanel implements Runnable{
 
 		//финиши
 		for(Position finish : game.getLevel().getFinish()){
-			g2d.setColor(colorRevolver.next());
+			g2d.setColor(colorRevolver.next().darker());
 			g2d.fillRect(finish.j * stepX + offsetX,  finish.i * stepY + offsetY, stepX, stepY);
 		}
 		//сбрасываем цветовой револьвер
