@@ -54,12 +54,12 @@ public class GameFrame extends JFrame{
 			
 		});
 
-        restartButton.addActionListener(new ActionListener() {
+        /*restartButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 loader.loadSameLevel();
             }
-        });
+        });*/
 
 		scriptPanel.add(buttonPanel, BorderLayout.PAGE_END);
 		scriptPanel.setPreferredSize(new Dimension(200,400));
