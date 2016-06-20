@@ -77,8 +77,6 @@ public class GameFrame extends JFrame{
                 System.out.println("Starting...");
                 for(int i=0; i<game.getBallNumber(); i++) {
                     commands=editors.get(i).getText();
-                    System.out.println(editors);
-                    System.out.println(commands);
                     new Thread(new RunTask(i,commands)).start();
                 }
             }
@@ -148,12 +146,10 @@ public class GameFrame extends JFrame{
         this.getContentPane().add(this.gamePanel, BorderLayout.CENTER);
 
         this.gamePanel.setPreferredSize(new Dimension(400, 400));
-        System.out.println("before: " + editors);
 
         tabsPanel.removeAll();
         editors.removeAll(editors);
 
-        System.out.println("after: " + editors);
         this.tabs = new JTabbedPane();
         this.tabsPanel.add(tabs, BorderLayout.CENTER);
         this.scriptPanel.add(tabsPanel, BorderLayout.CENTER);
