@@ -74,6 +74,6 @@ public class Loader implements EndGameObserver{
 
     @Override
     public void EndGame() {
-        //TODO:two buttons on the frame
+        frame.setEndGameButtons();
     }
 }

@@ -1,6 +1,7 @@
 package Game;
 
 import javax.swing.*;
+import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -16,6 +17,7 @@ public class GameFrame extends JFrame{
     private JTabbedPane tabs;
     private ArrayList<JEditorPane> editors;
 	private JPanel scriptPanel;
+    private JPanel tabsPanel;
     private JPanel cards;
     private JPanel buttonPanel0;
     private JPanel buttonPanel1;
@@ -38,6 +40,9 @@ public class GameFrame extends JFrame{
 
 		scriptPanel = new JPanel();
 		scriptPanel.setLayout(new BorderLayout());
+
+        tabsPanel = new JPanel();
+        tabsPanel.setLayout(new BorderLayout());
 
         cards=new JPanel();
         cards.setLayout(new CardLayout());
@@ -62,13 +67,18 @@ public class GameFrame extends JFrame{
         cards.add(buttonPanel0,START);
         cards.add(buttonPanel1,END);
 
+        this.editors = new ArrayList<JEditorPane>();
+
         startButton.addActionListener(new ActionListener(){
 
             @Override
             public void actionPerformed(ActionEvent arg0) {
                 String commands;
+                System.out.println("Starting...");
                 for(int i=0; i<game.getBallNumber(); i++) {
                     commands=editors.get(i).getText();
+                    System.out.println(editors);
+                    System.out.println(commands);
                     new Thread(new RunTask(i,commands)).start();
                 }
             }
@@ -83,7 +93,22 @@ public class GameFrame extends JFrame{
             }
         });
 
-        this.setStartButtons();
+        replayButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("Reloading level.");
+                loader.loadSameLevel();
+            }
+        });
+
+        nextLevelButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("Loading next level.");
+                loader.loadNextLevel();
+            }
+        });
+
 		//this.setResizable(false);
 		this.setVisible(true);
 	}
@@ -123,22 +148,26 @@ public class GameFrame extends JFrame{
         this.getContentPane().add(this.gamePanel, BorderLayout.CENTER);
 
         this.gamePanel.setPreferredSize(new Dimension(400, 400));
+        System.out.println("before: " + editors);
 
-        this.editors = new ArrayList<JEditorPane>();
+        tabsPanel.removeAll();
+        editors.removeAll(editors);
 
+        System.out.println("after: " + editors);
         this.tabs = new JTabbedPane();
-        this.scriptPanel.add(tabs, BorderLayout.CENTER);
-
+        this.tabsPanel.add(tabs, BorderLayout.CENTER);
+        this.scriptPanel.add(tabsPanel, BorderLayout.CENTER);
 
         for(int i=0;i<game.getBallNumber();i++) {
-            editors.add(new JEditorPane());
+            JEditorPane editor = new JEditorPane();
+            editors.add(editor);
             tabs.addTab("Ball "+i,editors.get(i));
         }
 
-        scriptPanel.add(cards, BorderLayout.PAGE_END);
-        scriptPanel.setPreferredSize(new Dimension(200,400));
+        this.scriptPanel.add(cards, BorderLayout.PAGE_END);
+        this.scriptPanel.setPreferredSize(new Dimension(200,400));
         this.add(scriptPanel, BorderLayout.LINE_END);
-
+        this.setStartButtons();
         frame.getContentPane().revalidate();
         frame.getContentPane().repaint();
 
