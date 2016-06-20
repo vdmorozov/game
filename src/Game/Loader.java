@@ -38,6 +38,7 @@ public class Loader implements EndGameObserver{
     }
 
     public void loadSameLevel(){
+        System.out.println("Loader is working.");
         loadLevel(currentI);
     }
 
@@ -47,19 +48,17 @@ public class Loader implements EndGameObserver{
     }
 
     public void loadLevel(int num){
-        if(num!=currentI||((currentI==0)&&(num==0))){
 
-            try {
-                FileInputStream fis = new FileInputStream("levels/" + lvllist.get(num));
-                ObjectInputStream oin = new ObjectInputStream(fis);
-                currentLevel = (Level) oin.readObject();
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            } catch (ClassNotFoundException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+        try {
+            FileInputStream fis = new FileInputStream("levels/" + lvllist.get(num));
+            ObjectInputStream oin = new ObjectInputStream(fis);
+            currentLevel = (Level) oin.readObject();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
         Game game = new Game(currentLevel);
         frame.setLevel(game);
