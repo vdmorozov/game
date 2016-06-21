@@ -12,6 +12,7 @@ public class GameFrame extends JFrame{
     private final static String START="Start";
     private final static String END="End";
     private static int ballsFinished;
+    private static int ballsNumber;
 
     private static Game game;
 	private GamePanel gamePanel;
@@ -145,6 +146,7 @@ public class GameFrame extends JFrame{
 	public void setLevel(Game g){
 
         this.game=g;
+        this.ballsNumber=game.getBallNumber();
         this.getContentPane().removeAll();
 
         this.gamePanel = new GamePanel(game);

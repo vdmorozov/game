@@ -10,7 +10,7 @@ public class Game implements EndGameSubject {
 
     private Level level;
     private ArrayList<Ball> balls;
-    private static int ballNumber;
+    private int ballNumber;
     private int finishedBallNumber;
 
     public Game(Level level){
