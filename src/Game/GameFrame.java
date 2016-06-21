@@ -143,6 +143,8 @@ public class GameFrame extends JFrame{
         this.getContentPane().removeAll();
 
         this.gamePanel = new GamePanel(game);
+        EndGameAdapter adapt = new EndGameAdapter(this.gamePanel);
+        this.game.registerObserver(adapt);
         this.getContentPane().add(this.gamePanel, BorderLayout.CENTER);
 
         this.gamePanel.setPreferredSize(new Dimension(400, 400));
