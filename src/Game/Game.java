@@ -40,11 +40,9 @@ public class Game implements EndGameSubject {
             finishedBallNumber++;
             if (finishedBallNumber == ballNumber) {
                 //System.out.println("Congratulations! All balls has been finished!");
-                //TODO: notify about win
                 notifyObservers(true);
             }
         }else{
-            //TODO: notify about lose
             notifyObservers(false);
         }
     }
