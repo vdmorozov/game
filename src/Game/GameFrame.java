@@ -13,7 +13,7 @@ public class GameFrame extends JFrame{
     private final static String END="End";
     private static int ballsFinished;
 
-    private Game game;
+    private static Game game;
 	private GamePanel gamePanel;
     private JTabbedPane tabs;
     private ArrayList<JEditorPane> editors;
@@ -134,12 +134,11 @@ public class GameFrame extends JFrame{
                         JOptionPane.ERROR_MESSAGE
                 );
             }
-            if(ballsFinished!=(game.getBallNumber()-1)){
-                ballsFinished++;
-            }
-            else {
+
+            if(startButtonCheck()){
                 startButton(true);
             }
+
         }
     }
 	
@@ -191,5 +190,15 @@ public class GameFrame extends JFrame{
 
     public void startButton(boolean condition){
         startButton.setEnabled(condition);
+    }
+
+    public static synchronized boolean startButtonCheck() {
+        if(ballsFinished!=(game.getBallNumber()-1)){
+            ballsFinished++;
+            return false;
+        }
+        else {
+           return true;
+        }
     }
 }
