@@ -5,6 +5,7 @@ public abstract class ScriptExpression {
 	protected boolean stopped = false;
 	public abstract void interpret(Ball ball);
 
+	//шаблонный метод
 	public boolean isStopped(){
 		return stopped;
 	}

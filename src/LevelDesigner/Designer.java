@@ -17,50 +17,88 @@ public class Designer {
         ArrayList<String> lvlnames = new ArrayList<String>();
         lvlnames.add("level1.lvl");
         lvlnames.add("level2.lvl");
+        lvlnames.add("level3.lvl");
+        lvlnames.add("level4.lvl");
 
         ArrayList<Level> levels = new ArrayList<Level>();
 
         //level 1
-        ArrayList<Position> start0 = new ArrayList<>();
-        start0.add(new Position(8,2));
-        ArrayList<Position> finish0 = new ArrayList<>();
-        finish0.add(new Position(1,5));
-        levels.add(new Level(10,10,1,start0, finish0));
-
-        levels.get(0).setBlock(new Position(2,1));
-        levels.get(0).setBlock(new Position(3,1));
-        levels.get(0).setBlock(new Position(2,6));
-        levels.get(0).setBlock(new Position(4,4));
-        levels.get(0).setBlock(new Position(4,5));
-        levels.get(0).setBlock(new Position(5,6));
-        levels.get(0).setBlock(new Position(5,7));
-        levels.get(0).setBlock(new Position(6,1));
-        levels.get(0).setBlock(new Position(6,2));
-        levels.get(0).setBlock(new Position(6,3));
-        levels.get(0).setBlock(new Position(7,7));
-        levels.get(0).setBlock(new Position(7,8));
+        ArrayList<Position> start1 = new ArrayList<>();
+        start1.add(new Position(7,3));
+        start1.add(new Position(7,6));
+        ArrayList<Position> finish1 = new ArrayList<>();
+        finish1.add(new Position(2,3));
+        finish1.add(new Position(2,6));
+        Level level1 = new Level(10,10,2,start1, finish1);
+        levels.add(level1);
 
         //level2
-        ArrayList<Position> start1 = new ArrayList<>();
-        start1.add(new Position(8,2));
-        start1.add(new Position(8,5));
-        ArrayList<Position> finish1 = new ArrayList<>();
-        finish1.add(new Position(1,5));
-        finish1.add(new Position(1,5));
-        levels.add(new Level(10,10,2,start1, finish1));
+        ArrayList<Position> start2 = new ArrayList<>();
+        start2.add(new Position(7,3));
+        start2.add(new Position(7,6));
+        ArrayList<Position> finish2 = new ArrayList<>();
+        finish2.add(new Position(2,3));
+        finish2.add(new Position(2,6));
+        Level level2 = new Level(10,10,2,start2, finish2);
 
-        levels.get(1).setBlock(new Position(2,1));
-        levels.get(1).setBlock(new Position(3,1));
-        levels.get(1).setBlock(new Position(2,6));
-        levels.get(1).setBlock(new Position(4,4));
-        levels.get(1).setBlock(new Position(4,5));
-        levels.get(1).setBlock(new Position(5,6));
-        levels.get(1).setBlock(new Position(5,7));
-        levels.get(1).setBlock(new Position(6,1));
-        levels.get(1).setBlock(new Position(6,2));
-        levels.get(1).setBlock(new Position(6,3));
-        levels.get(1).setBlock(new Position(7,7));
-        levels.get(1).setBlock(new Position(7,8));
+        for(int j = 0; j < 8; j++) {
+            level2.setBlock(new Position(1, j));
+            level2.setBlock(new Position(3, j));
+        }
+        levels.add(level2);
+
+        //level3
+        ArrayList<Position> start3 = new ArrayList<>();
+        start3.add(new Position(6,3));
+        start3.add(new Position(7,6));
+        ArrayList<Position> finish3 = new ArrayList<>();
+        finish3.add(new Position(3,7));
+        finish3.add(new Position(3,2));
+        Level level3 = new Level(10,10,2,start3, finish3);
+
+        for(int i = 2; i < 6; i++) {
+            level3.setBlock(new Position(i, 1));
+            level3.setBlock(new Position(i, 8));
+            for(int j = 3; j < 7; j++){
+                level3.setBlock(new Position(i, j));
+            }
+        }
+        level3.setBlock(new Position(2,2));
+        level3.setBlock(new Position(2,7));
+        level3.setBlock(new Position(6,6));
+        level3.setBlock(new Position(6,1));
+        level3.setBlock(new Position(6,8));
+        level3.setBlock(new Position(7,1));
+        level3.setBlock(new Position(7,2));
+        level3.setBlock(new Position(7,3));
+        level3.setBlock(new Position(7,8));
+        for(int j = 1; j < 9; j++){
+            level3.setBlock(new Position(8,j));
+        }
+        levels.add(level3);
+
+        //level3
+        ArrayList<Position> start4 = new ArrayList<>();
+        start4.add(new Position(3,3));
+        start4.add(new Position(2,7));
+        ArrayList<Position> finish4 = new ArrayList<>();
+        finish4.add(new Position(2,3));
+        finish4.add(new Position(2,2));
+        Level level4 = new Level(10,10,2,start4, finish4);
+
+        for(int j = 1; j < 5; j++){
+            level4.setBlock(new Position(1,j));
+        }
+        level4.setBlock(new Position(2,1));
+        level4.setBlock(new Position(3,1));
+        for(int i = 3; i < 8; i++){
+            level4.setBlock(new Position(i,2));
+            level4.setBlock(new Position(i,4));
+        }
+        level4.setBlock(new Position(5,3));
+        level4.setBlock(new Position(7,3));
+
+        levels.add(level4);
 
         //writing names to lvllist
         try {

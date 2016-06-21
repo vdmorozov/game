@@ -21,6 +21,11 @@ public class Level extends Field implements Serializable{
 
         this.start = new ArrayList<>(ballNumber);
         for(Position p : start){
+            for(Position toCheck : this.start){
+                if (p.equals(toCheck)){
+                    throw new IllegalArgumentException("all start positions must be different");
+                }
+            }
             this.start.add(new Position(p));
             count++;
         }
@@ -31,6 +36,11 @@ public class Level extends Field implements Serializable{
 
         this.finish = new ArrayList<>(ballNumber);
         for(Position p : finish){
+            for(Position toCheck : this.finish){
+                if (p.equals(toCheck)){
+                    throw new IllegalArgumentException("all finish positions must be different");
+                }
+            }
             this.finish.add(new Position(p));
             count++;
         }
