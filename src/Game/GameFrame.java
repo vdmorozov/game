@@ -110,7 +110,7 @@ public class GameFrame extends JFrame{
             }
         });
 
-		//this.setResizable(false);
+		this.setResizable(false);
 		this.setVisible(true);
 	}
 
