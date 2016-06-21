@@ -41,6 +41,11 @@ public class Level extends Field implements Serializable{
                     throw new IllegalArgumentException("all finish positions must be different");
                 }
             }
+            for(Position toCheck : this.start){
+                if (p.equals(toCheck)){
+                    throw new IllegalArgumentException("finish can not be placed at the same position with one of the starts");
+                }
+            }
             this.finish.add(new Position(p));
             count++;
         }
