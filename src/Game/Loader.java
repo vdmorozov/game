@@ -1,5 +1,6 @@
 package Game;
 
+import javax.swing.*;
 import java.io.*;
 import java.util.ArrayList;
 
@@ -44,6 +45,11 @@ public class Loader implements EndGameObserver{
 
     public void loadNextLevel(){
         currentI++;
+        if(currentI>=lvllist.size()){
+            JOptionPane.showMessageDialog(null, "There are no new levels left.");
+            currentI--;
+            return;
+        }
         loadLevel(currentI);
     }
 
