@@ -3,7 +3,7 @@ package Game;
 import java.awt.*;
 import java.util.ArrayList;
 
-import javax.swing.JPanel;
+import javax.swing.*;
 
 public class GamePanel extends JPanel implements Runnable{
 	private final ArrayList<Color> colors;
@@ -90,6 +90,15 @@ public class GamePanel extends JPanel implements Runnable{
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}
+	}
+
+	public void end(int win){
+		if(win == 0) {
+			JOptionPane.showMessageDialog(null, "WIN!");
+		}
+		else{
+			JOptionPane.showMessageDialog(null, "You lose");
 		}
 	}
 
