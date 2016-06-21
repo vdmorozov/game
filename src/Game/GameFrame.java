@@ -11,6 +11,7 @@ public class GameFrame extends JFrame{
 
     private final static String START="Start";
     private final static String END="End";
+    private static int ballsFinished;
 
     private Game game;
 	private GamePanel gamePanel;
@@ -74,6 +75,7 @@ public class GameFrame extends JFrame{
             @Override
             public void actionPerformed(ActionEvent arg0) {
                 String commands;
+                ballsFinished=0;
                 System.out.println("Starting...");
                 for(int i=0; i<game.getBallNumber(); i++) {
                     commands=editors.get(i).getText();
@@ -120,7 +122,7 @@ public class GameFrame extends JFrame{
         }
         @Override
         public void run() {
-            startButton.setEnabled(false);
+            startButton(false);
 
             try {
                 game.startBall(ballNum, commands);
@@ -132,8 +134,12 @@ public class GameFrame extends JFrame{
                         JOptionPane.ERROR_MESSAGE
                 );
             }
-
-			startButton.setEnabled(true);
+            if(ballsFinished!=(game.getBallNumber()-1)){
+                ballsFinished++;
+            }
+            else {
+                startButton(true);
+            }
         }
     }
 	
@@ -180,5 +186,10 @@ public class GameFrame extends JFrame{
     public void setStartButtons(){
         CardLayout cl = (CardLayout) (cards.getLayout());
         cl.show(cards,START);
+        startButton(true);
+    }
+
+    public void startButton(boolean condition){
+        startButton.setEnabled(condition);
     }
 }

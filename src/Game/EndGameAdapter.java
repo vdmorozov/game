@@ -14,7 +14,13 @@ public class EndGameAdapter implements EndGameObserver {
     }
 
     @Override
-    public void EndGame() {
-        JOptionPane.showMessageDialog(null,"WIN!");
+    public void EndGame(boolean win) {
+        if(win) {
+            JOptionPane.showMessageDialog(null, "WIN!");
+        }
+        else{
+            JOptionPane.showMessageDialog(null, "You lose.");
+        }
+
     }
 }

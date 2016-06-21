@@ -80,8 +80,12 @@ public class Loader implements EndGameObserver{
     }
 
     @Override
-    public void EndGame() {
-
-        frame.setEndGameButtons();
+    public void EndGame(boolean win) {
+        if(win) {
+            frame.setEndGameButtons();
+        }
+        else{
+            frame.startButton(false);
+        }
     }
 }
