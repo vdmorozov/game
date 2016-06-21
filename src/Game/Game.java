@@ -13,6 +13,8 @@ public class Game implements EndGameSubject {
     private int ballNumber;
     private int finishedBallNumber;
 
+    private boolean ended;
+
     public Game(Level level){
         observers = new ArrayList<>();
 
@@ -20,6 +22,8 @@ public class Game implements EndGameSubject {
         ballNumber = level.getBallNumber();
         balls = new ArrayList<>(ballNumber);
         finishedBallNumber = 0;
+
+        ended = false;
 
         //creating balls for this level
         ArrayList<Position> start = level.getStart();
@@ -40,12 +44,18 @@ public class Game implements EndGameSubject {
             finishedBallNumber++;
             if (finishedBallNumber == ballNumber) {
                 //System.out.println("Congratulations! All balls has been finished!");
+                ended = true;
                 notifyObservers(true);
             }
         }else{
+            ended = true;
             notifyObservers(false);
         }
     }
+    public boolean hasEnded(){
+        return ended;
+    }
+
     public boolean isEmpty(Position pos){
         boolean result = level.isEmpty(pos);
         for(Ball b : balls){

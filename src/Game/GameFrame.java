@@ -136,7 +136,7 @@ public class GameFrame extends JFrame{
                 );
             }
 
-            if(startButtonCheck()){
+            if(startButtonCheck() && !game.hasEnded()){
                 startButton(true);
             }
 
