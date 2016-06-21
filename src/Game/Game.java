@@ -41,11 +41,11 @@ public class Game implements EndGameSubject {
             if (finishedBallNumber == ballNumber) {
                 //System.out.println("Congratulations! All balls has been finished!");
                 //TODO: notify about win
-                notifyObservers();
+                notifyObservers(true);
             }
         }else{
             //TODO: notify about lose
-            notifyObservers();
+            notifyObservers(false);
         }
     }
     public boolean isEmpty(Position pos){
@@ -81,9 +81,9 @@ public class Game implements EndGameSubject {
         observers.remove(o);
     }
 
-    private void notifyObservers() {
+    private void notifyObservers(boolean win) {
         for(EndGameObserver o : observers){
-            o.EndGame();
+            o.EndGame(win);
         }
     }
 }
