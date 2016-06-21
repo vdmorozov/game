@@ -27,15 +27,14 @@ public class Field implements Serializable {
 	public void setBlock(Position pos)
 	{
 		matrix.set(pos.i * col + pos.j, false);
-	}	
+	}
 	public boolean isEmpty(Position pos){
-		boolean isEmpty;
-		try{
-			isEmpty = matrix.get(pos.i * col + pos.j);
-		}catch (IndexOutOfBoundsException e){
-			isEmpty = false;
+		if(pos.i >= row || pos.j >= col){
+			//если позиция за границами поля
+			return false;
+		} else{
+			return matrix.get(pos.i * col + pos.j);
 		}
-		return isEmpty;
 	}
 	int getRow(){
 		return row;
