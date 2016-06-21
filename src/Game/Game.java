@@ -35,10 +35,16 @@ public class Game implements EndGameSubject {
             expr.interpret(balls.get(i));
         }
     }
-    public void ballFinishedHandler(){
-        finishedBallNumber++;
-        if(finishedBallNumber == ballNumber) {
-            //System.out.println("Congratulations! All balls has been finished!");
+    public void ballStoppedHandler(boolean finished){
+        if(finished) {
+            finishedBallNumber++;
+            if (finishedBallNumber == ballNumber) {
+                //System.out.println("Congratulations! All balls has been finished!");
+                //TODO: notify about win
+                notifyObservers();
+            }
+        }else{
+            //TODO: notify about lose
             notifyObservers();
         }
     }
