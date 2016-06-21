@@ -29,7 +29,7 @@ public class Field implements Serializable {
 		matrix.set(pos.i * col + pos.j, false);
 	}
 	public boolean isEmpty(Position pos){
-		if(pos.i >= row || pos.j >= col){
+		if(pos.i < 0 || pos.i >= row || pos.j < 0 || pos.j >= col){
 			//если позиция за границами поля
 			return false;
 		} else{
